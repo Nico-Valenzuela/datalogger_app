@@ -6,7 +6,7 @@ Mqtt test
 
     const clientId = 'mqttjs_' + Math.random();
 
-    const host = 'ws://localhost:8083/mqtt';
+    const host = 'ws://'+process.env.EMQX_NODE_HOST+':8083/mqtt';
 
     const options = {
         keepalive: 60,
