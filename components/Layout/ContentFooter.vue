@@ -4,40 +4,43 @@
       <ul class="nav">
         <li class="nav-item">
           <a
-            href="https://ioticos.org"
+            href="https://dataloggerservices.online"
             target="_blank"
             rel="noopener"
             class="nav-link"
           >
-            IoTicos.org
+            Proyecto Final 2021
           </a>
         </li>
         <li class="nav-item">
           <a
-            href="https://ioticos.org"
+            href="https://dataloggerservices.online"
             target="_blank"
             rel="noopener"
             class="nav-link"
           >
-            About Us
           </a>
         </li>
         <li class="nav-item">
           <a
-            href="hhttps://ioticos.org"
+            href="https://dataloggerservices.online"
             target="_blank"
             rel="noopener"
             class="nav-link"
           >
-            Blog
           </a>
         </li>
       </ul>
       <div class="copyright">
         &copy; {{ year }}, made with <i class="tim-icons icon-heart-2"></i> by
 
-        <a href="https://ioticos.org" target="_blank" rel="noopener">IoTicos</a>
-        for a better web.
+        <a
+          href="https://dataloggerservices.online"
+          target="_blank"
+          rel="noopener"
+          >Cippitelli - Martino - Valenzuela</a
+        >
+        for everyone present.
       </div>
     </div>
   </footer>

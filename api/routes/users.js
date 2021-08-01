@@ -75,6 +75,7 @@ router.post("/register", async (req, res) => {
 
     var user = await User.create(newUser);
 
+
     const response = {
       status: "success"
     };

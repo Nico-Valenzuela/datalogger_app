@@ -126,12 +126,7 @@
 
             <el-table-column prop="counter" label="Matches"></el-table-column>
 
-            <el-table-column
-              min-width="110"
-              header-align="right"
-              align="right"
-              label="Actions"
-            >
+            <el-table-column min-width="110" header-align="right" align="right" label="Actions">
               <div
                 slot-scope="{ row, $index }"
                 class="text-right table-actions"
@@ -184,6 +179,7 @@
 <script>
 import { Select, Option } from "element-ui";
 import { Table, TableColumn } from "element-ui";
+
 export default {
   middleware: "authenticated",
   components: {
@@ -209,7 +205,10 @@ export default {
     };
   },
   methods: {
+
+
     deleteDevice(rule) {
+
       const axiosHeaders = {
         headers: {
           token: this.$store.state.auth.token
@@ -218,10 +217,11 @@ export default {
           emqxRuleId: rule.emqxRuleId
         }
       };
+
       this.$axios
         .delete("/alarm-rule", axiosHeaders)
         .then(res => {
-          if (res.data.status == "success") {
+           if (res.data.status == "success") {
             this.$notify({
               type: "success",
               icon: "tim-icons icon-check-2",
@@ -241,15 +241,20 @@ export default {
           return;
         });
     },
+
     updateStatusRule(rule) {
       const axiosHeaders = {
         headers: {
           token: this.$store.state.auth.token
         }
       };
+
       var ruleCopy = JSON.parse(JSON.stringify(rule));
+
       ruleCopy.status = !ruleCopy.status;
+
       const toSend = { rule: ruleCopy };
+
       this.$axios
         .put("/alarm-rule", toSend, axiosHeaders)
         .then(res => {
@@ -259,7 +264,9 @@ export default {
               icon: "tim-icons icon-check-2",
               message: "Success! Alarm Rule was updated"
             });
+
             this.$store.dispatch("getDevices");
+
             return;
           }
         })
@@ -283,6 +290,7 @@ export default {
         });
         return;
       }
+
       if (this.newRule.condition == null) {
         this.$notify({
           type: "warning",
@@ -291,6 +299,7 @@ export default {
         });
         return;
       }
+
       if (this.newRule.value == null) {
         this.$notify({
           type: "warning",
@@ -299,6 +308,7 @@ export default {
         });
         return;
       }
+
       if (this.newRule.triggerTime == null) {
         this.$notify({
           type: "warning",
@@ -307,6 +317,8 @@ export default {
         });
         return;
       }
+
+      
       this.newRule.dId = this.$store.state.selectedDevice.dId;
       this.newRule.deviceName = this.$store.state.selectedDevice.name;
       this.newRule.variableFullName = this.$store.state.selectedDevice.template.widgets[
@@ -315,14 +327,19 @@ export default {
       this.newRule.variable = this.$store.state.selectedDevice.template.widgets[
         this.selectedWidgetIndex
       ].variable;
+
+      
+
       const axiosHeaders = {
         headers: {
           token: this.$store.state.auth.token
         }
       };
+
       var toSend = {
         newRule: this.newRule
       };
+
       this.$axios
         .post("/alarm-rule", toSend, axiosHeaders)
         .then(res => {
@@ -338,7 +355,9 @@ export default {
               icon: "tim-icons icon-check-2",
               message: "Success! Alarm Rule was added"
             });
+
             this.$store.dispatch("getDevices");
+
             return;
           }
         })

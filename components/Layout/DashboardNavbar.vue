@@ -16,7 +16,7 @@
           <span class="navbar-toggler-bar bar3"></span>
         </button>
       </div>
-      <a class="navbar-brand ml-xl-3 ml-5" href="#pablo">{{ routeName }}</a>
+      <!-- <a class="navbar-brand ml-xl-3 ml-5" href="#pablo">{{ routeName }}</a> -->
     </div>
 
     <ul class="navbar-nav" :class="$rtl.isRTL ? 'mr-auto' : 'ml-auto'">
@@ -78,16 +78,17 @@
         menu-classes="dropdown-navbar"
       >
         <template slot="title">
-          <div class="photo"><img src="img/mike.jpg" /></div>
+          <div class="photo"><img src="img/default-avatar.png" /></div>
+          <!--ACA DEBERIA ESTAR EL LOGO DE LA CABEZA-->
           <b class="caret d-none d-lg-block d-xl-block"></b>
           <p @click="logOut()" class="d-lg-none">Log out</p>
         </template>
-        <li class="nav-link">
+        <!--<li class="nav-link">
           <a href="#" class="nav-item dropdown-item">Profile</a>
         </li>
         <li class="nav-link">
           <a href="#" class="nav-item dropdown-item">Settings</a>
-        </li>
+        </li>-->
         <div class="dropdown-divider"></div>
         <li class="nav-link">
           <a href="#" @click="logOut()" class="nav-item dropdown-item"
@@ -102,6 +103,7 @@
 import { CollapseTransition } from "vue2-transitions";
 import { BaseNav, Modal } from "@/components";
 import { Select, Option } from "element-ui";
+
 export default {
   components: {
     CollapseTransition,
@@ -149,10 +151,13 @@ export default {
           token: this.$store.state.auth.token
         }
       };
+
       var auto;
+
       const toSend = {
         notifId: notifId
       };
+
       this.$axios
         .put("/notifications", toSend, axiosHeaders)
         .then(res => {
@@ -165,21 +170,27 @@ export default {
     },
     logOut() {
       console.log("logout");
+
       localStorage.clear();
+
       const auth = {};
       this.$store.commit("setAuth", auth);
+
       window.location.href = "/login";
     },
     selectDevice() {
       const device = this.$store.state.devices[this.selectedDevice];
+
       const axiosHeaders = {
         headers: {
           token: this.$store.state.auth.token
         }
       };
+
       const toSend = {
         dId: device.dId
       };
+
       this.$axios
         .put("/device", toSend, axiosHeaders)
         .then(res => {
@@ -201,6 +212,7 @@ export default {
         min = ("0" + d.getMinutes()).slice(-2), // Add leading 0.
         ampm = "AM",
         time;
+
       if (hh > 12) {
         h = hh - 12;
         ampm = "PM";
@@ -210,8 +222,10 @@ export default {
       } else if (hh == 0) {
         h = 12;
       }
+
       // ie: 2013-02-18, 8:35 AM
       time = dd + "/" + mm + "/" + yyyy + ", " + h + ":" + min + " " + ampm;
+
       return time;
     },
     capitalizeFirstLetter(string) {

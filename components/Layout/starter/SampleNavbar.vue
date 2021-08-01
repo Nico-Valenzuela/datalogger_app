@@ -59,30 +59,28 @@
         title-classes="nav-link"
         menu-classes="dropdown-navbar"
       >
-        <template
-          slot="title"
-        >
+        <template slot="title">
           <div class="photo"><img src="img/mike.jpg" /></div>
           <b class="caret d-none d-lg-block d-xl-block"></b>
           <p class="d-lg-none">Log out</p>
         </template>
-        <li class="nav-link">
+        <!--<li class="nav-link">
           <a href="#" class="nav-item dropdown-item">Profile</a>
         </li>
         <li class="nav-link">
           <a href="#" class="nav-item dropdown-item">Settings</a>
-        </li>
+        </li>-->
         <div class="dropdown-divider"></div>
         <li class="nav-link">
-          <a href="#" class="nav-item dropdown-item">Log out</a>
+          <a href="#" class="nav-item dropdown-item">Salir</a>
         </li>
       </base-dropdown>
     </ul>
   </base-nav>
 </template>
 <script>
-import { CollapseTransition } from 'vue2-transitions';
-import { BaseNav, Modal } from '@/components';
+import { CollapseTransition } from "vue2-transitions";
+import { BaseNav, Modal } from "@/components";
 
 export default {
   components: {
@@ -93,8 +91,8 @@ export default {
   computed: {
     routeName() {
       const { path } = this.$route;
-      let parts = path.split('/')
-      return parts.map(p => this.capitalizeFirstLetter(p)).join(' ');
+      let parts = path.split("/");
+      return parts.map(p => this.capitalizeFirstLetter(p)).join(" ");
     },
     isRTL() {
       return this.$rtl.isRTL;
@@ -105,7 +103,7 @@ export default {
       activeNotifications: false,
       showMenu: false,
       searchModalVisible: false,
-      searchQuery: ''
+      searchQuery: ""
     };
   },
   methods: {

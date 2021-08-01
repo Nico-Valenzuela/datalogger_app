@@ -38,13 +38,16 @@ export default {
   data() {
     return {};
   },
+
   mounted() {},
+
   methods: {
     fixWidget(widget) {
       var widgetCopy = JSON.parse(JSON.stringify(widget));
       widgetCopy.selectedDevice.dId = this.$store.state.selectedDevice.dId;
       widgetCopy.selectedDevice.name = this.$store.state.selectedDevice.name;
       widgetCopy.userId = this.$store.state.selectedDevice.userId;
+
       if (widget.widget == "numberchart") {
         widgetCopy.demo = false;
       }

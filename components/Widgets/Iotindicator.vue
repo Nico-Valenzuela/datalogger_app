@@ -16,50 +16,42 @@
 
 <script>
 export default {
-  props: ["config"],
+  props: ['config'],
   data() {
     return {
       value: false,
       topic: "",
-      props: ["config"]
+      props: ['config']      
     };
   },
-  watch: {
-    config: {
-      immediate: true,
-      deep: true,
-      handler() {
-        setTimeout(() => {
-          this.value = false;
-          this.$nuxt.$off(this.topic);
-          //userId/dId/uniquestr/sdata
-          const topic =
-            this.config.userId +
-            "/" +
-            this.config.selectedDevice.dId +
-            "/" +
-            this.config.variable +
-            "/sdata";
-          this.$nuxt.$on(topic, this.processReceivedData);
-        }, 300);
-      }
-    }
-  },
-  mounted() {
-    const topic =
-      this.config.userId +
-      "/" +
-      this.config.selectedDevice.dId +
-      "/" +
-      this.config.variable +
-      "/sdata";
+  watch:  {
+            config: {
+                immediate: true,
+                deep: true,
+                handler() {
+                    setTimeout(() => {
+                        this.value = false;
+
+                        this.$nuxt.$off(this.topic);
+
+                        //userId/dId/uniquestr/sdata
+                        const topic = this.config.userId + "/" + this.config.selectedDevice.dId + "/" + this.config.variable + "/sdata";
+                        this.$nuxt.$on(topic, this.processReceivedData);
+
+                    }, 300);
+                }
+            }
+        },
+  mounted(){
+    const topic = this.config.userId + "/" + this.config.selectedDevice.dId + "/" + this.config.variable + "/sdata";
     this.$nuxt.$on(topic, this.processReceivedData);
   },
-  beforeDestroy() {
+  beforeDestroy(){
     this.$nuxt.$off(this.topic);
   },
   methods: {
-    processReceivedData(data) {
+
+    processReceivedData(data){
       try {
         console.log("received");
         console.log(data);
@@ -68,11 +60,12 @@ export default {
         console.log(error);
       }
     },
-
+      
     getIconColorClass() {
       if (!this.value) {
         return "text-dark";
       }
+
       if (this.config.class == "success") {
         return "text-success";
       }
@@ -86,6 +79,9 @@ export default {
         return "text-danger";
       }
     }
+
   }
 };
+
+
 </script>

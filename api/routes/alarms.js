@@ -6,16 +6,20 @@ const colors = require("colors");
 
 import AlarmRule from "../models/emqx_alarm_rule.js";
 
+
+
 const auth = {
   auth: {
     username: "admin",
-    password: process.env.EMQX_DEFAULT_APPLICATION_SECRET
+    password: "emqxsecret"
   }
 };
 
+
+
 //******************
 //**** A P I *******
-//******************
+//****************** 
 
 //CREATE ALARM-RULE
 router.post("/alarm-rule", checkAuth, async (req, res) => {
@@ -93,14 +97,16 @@ router.delete("/alarm-rule", checkAuth, async (req, res) => {
   }
 });
 
+
+
 //**********************
 //**** FUNCTIONS *******
-//**********************
+//********************** 
 
 //CREATE ALARM
 async function createAlarmRule(newAlarm) {
   try {
-    const url = "http://" + process.env.EMQX_NODE_HOST + ":8085/api/v4/rules";
+    const url = "http://localhost:8085/api/v4/rules";
 
     // topicExample = userid/did/temp  //msgExample = {value: 20}
     const topic =
@@ -137,6 +143,8 @@ async function createAlarmRule(newAlarm) {
     const res = await axios.post(url, newRule, auth);
     var emqxRuleId = res.data.data.id;
 
+
+
     if (res.data.data && res.status === 200) {
       //save rule in mongo -- grabamos regla en mongo
       const mongoRule = await AlarmRule.create({
@@ -152,11 +160,7 @@ async function createAlarmRule(newAlarm) {
         createTime: Date.now()
       });
 
-      const url =
-        "http://" +
-        process.env.EMQX_NODE_HOST +
-        ":8085/api/v4/rules/" +
-        mongoRule.emqxRuleId;
+      const url = "http://localhost:8085/api/v4/rules/" + mongoRule.emqxRuleId;
 
       const payload_templ =
         '{"userId":"' +
@@ -196,11 +200,7 @@ async function createAlarmRule(newAlarm) {
 //UPDATE ALARM STATUS
 async function updateAlarmRuleStatus(emqxRuleId, status) {
   try {
-    const url =
-      "http://" +
-      process.env.EMQX_NODE_HOST +
-      ":8085/api/v4/rules/" +
-      emqxRuleId;
+    const url = "http://localhost:8085/api/v4/rules/" + emqxRuleId;
 
     const newRule = {
       enabled: status
@@ -224,11 +224,7 @@ async function updateAlarmRuleStatus(emqxRuleId, status) {
 //DELETE ONLY ONE RULE
 async function deleteAlarmRule(emqxRuleId) {
   try {
-    const url =
-      "http://" +
-      process.env.EMQX_NODE_HOST +
-      ":8085/api/v4/rules/" +
-      emqxRuleId;
+    const url = "http://localhost:8085/api/v4/rules/" + emqxRuleId;
 
     const emqxRule = await axios.delete(url, auth);
 
