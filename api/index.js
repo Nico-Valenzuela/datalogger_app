@@ -5,6 +5,8 @@ const morgan = require("morgan");
 const cors = require("cors");
 const colors = require("colors");
 
+require("dotenv").config();
+
 //instances
 const app = express();
 
@@ -30,16 +32,16 @@ app.use("/api", require("./routes/dataprovider.js"));
 module.exports = app;
 
 //listener
-app.listen(3001, () => {
-  console.log("API server listening on port 3001");
+app.listen(process.env.API_PORT, () => {
+  console.log("API server listening on port " + process.env.API_PORT);
 });
 
 //Mongo Connection
-const mongoUserName = "devuser";
-const mongoPassword = "devpassword";
-const mongoHost = "localhost";
-const mongoPort = "27017";
-const mongoDatabase = "Datalogger";
+const mongoUserName = process.env.MONGO_USERNAME;
+const mongoPassword = process.env.MONGO_PASSWORD;
+const mongoHost = process.env.MONGO_HOST;
+const mongoPort = process.env.MONGO_PORT;
+const mongoDatabase = process.env.MONGO_DATABASE;
 
 var uri =
   "mongodb://" +
@@ -68,6 +70,7 @@ mongoose.connect(uri, options).then(
     console.log("✔ Mongo Successfully Connected!".green);
     console.log("*******************************".green);
     console.log("\n");
+    global.check_mqtt_superuser();
   },
   err => {
     console.log("\n");
